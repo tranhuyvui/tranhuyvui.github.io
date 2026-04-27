@@ -3,188 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Cá Nhân</title>
+    <title>Trần Huy Vui | Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* CSS Tổng thể */
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+            color: var(--light);
             line-height: 1.6;
-            color: #333;
-            background-color: #f4f7f6;
+            overflow-x: hidden;
         }
 
-        header {
-            background: #2c3e50;
-            color: #fff;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
+        /* Thanh điều hướng */
         nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
             list-style: none;
         }
 
-        nav a {
-            color: #fff;
+        .nav-links a {
+            color: var(--light);
             text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            opacity: 0.8;
         }
 
-        nav a:hover {
-            color: #3498db;
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--primary);
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 80px auto 20px;
-            padding: 20px;
-        }
-
-        section {
-            padding: 60px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        /* Phần Giới thiệu */
-        .intro {
+        /* Hero Section */
+        .hero {
+            height: 100vh;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 30px;
+            text-align: center;
+            padding: 0 10%;
         }
 
-        .intro-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: #ddd;
-            object-fit: cover;
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
         }
 
-        /* Phần Dự án */
+        .hero p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 600px;
+        }
+
+        /* Section chung */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Grid Dự án */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
         }
 
-        .card {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .project-card {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .card h3 {
-            margin-bottom: 10px;
-            color: #3498db;
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-color: var(--primary);
         }
 
-        /* Phần Chứng chỉ */
-        .cert-list {
-            list-style: square;
-            padding-left: 40px;
+        .tag {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            display: inline-block;
+            margin-bottom: 1rem;
         }
 
-        /* Phần Liên hệ */
-        .contact {
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .project-card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-icons {
+            display: flex;
+            gap: 15px;
+            font-size: 1.2rem;
+            color: #6366f1;
+        }
+
+        /* Chứng chỉ */
+        .cert-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cert-item i {
+            font-size: 2rem;
+            color: #fbbf24;
+        }
+
+        /* Liên hệ */
+        .contact-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 30px;
+            padding: 4rem;
             text-align: center;
+        }
+
+        .contact-links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .btn-contact {
+            background: #fff;
+            color: var(--dark);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-contact:hover {
+            transform: scale(1.1);
         }
 
         footer {
             text-align: center;
-            padding: 20px;
-            background: #2c3e50;
-            color: #fff;
+            padding: 2rem;
+            opacity: 0.5;
+            font-size: 0.8rem;
         }
 
-        /* Responsive cho điện thoại */
-        @media (max-width: 600px) {
-            .intro {
-                flex-direction: column;
-                text-align: center;
-            }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .project-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <nav>
-            <a href="#gioi-thieu">Giới thiệu</a>
-            <a href="#du-an">Dự án</a>
-            <a href="#chung-chi">Chứng chỉ</a>
-            <a href="#lien-he">Liên hệ</a>
-        </nav>
-    </header>
+    <nav>
+        <div class="logo">HUY VUI.</div>
+        <ul class="nav-links">
+            <li><a href="#about">Giới thiệu</a></li>
+            <li><a href="#projects">Dự án</a></li>
+            <li><a href="#certs">Chứng chỉ</a></li>
+            <li><a href="#contact">Liên hệ</a></li>
+        </ul>
+    </nav>
 
-    <div class="container">
-        <section id="gioi-thieu">
-            <h2>Giới thiệu</h2>
-            <div class="intro">
-                <img src="https://via.placeholder.com/200" alt="Avatar" class="intro-img">
-                <div>
-                    <p>Chào bạn! Tôi là <strong>[Họ tên của bạn]</strong>.</p>
-                    <p>Tôi là một người đam mê công nghệ và sáng tạo nội dung. Hiện tại tôi đang tập trung phát triển các dự án liên quan đến web và thiết kế trải nghiệm người dùng.</p>
-                </div>
-            </div>
+    <main>
+        <section class="hero" id="about">
+            <h1>Backend Developer</h1>
+            <p>Sinh viên CNTT tại HCMUE. Chuyên sâu về Node.js, Hệ thống phân tán và tích hợp AI (Gemini). Xây dựng những sản phẩm bền vững và hiệu năng cao.</p>
         </section>
 
-        <section id="du-an">
-            <h2>Dự án tiêu biểu</h2>
+        <section id="projects">
+            <h2 class="section-title">Dự Án Tâm Huyết</h2>
             <div class="project-grid">
-                <div class="card">
-                    <h3>Dự án A</h3>
-                    <p>Mô tả ngắn gọn về dự án, công nghệ đã sử dụng (HTML, CSS, JS).</p>
+                
+                <div class="project-card">
+                    <span class="tag">Hybrid Database</span>
+                    <span class="tag">Fullstack</span>
+                    <h3>Fashion Shop - E-Commerce</h3>
+                    <p>Website bán hàng thời trang với cơ chế hiển thị sản phẩm theo vùng miền. Sử dụng kiến trúc SQL Server Replication để đồng bộ dữ liệu giữa 3 chi nhánh (HN, DN, HCM).</p>
+                    <div class="tech-icons">
+                        <i class="fab fa-vuejs" title="Vue 3"></i>
+                        <i class="fab fa-node-js" title="Node.js"></i>
+                        <i class="fas fa-database" title="SQL Server & MongoDB"></i>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>Dự án B</h3>
-                    <p>Website giới thiệu sản phẩm cá nhân với giao diện thân thiện.</p>
+
+                <div class="project-card">
+                    <span class="tag">Gemini AI Integration</span>
+                    <span class="tag">RAG Architecture</span>
+                    <h3>AI Job Portal System</h3>
+                    <p>Nền tảng tuyển dụng thông minh. Sử dụng Gemini API để phân tích CV và tự động chấm điểm độ phù hợp (matching score) giữa ứng viên và mô tả công việc (JD).</p>
+                    <div class="tech-icons">
+                        <i class="fas fa-robot" title="Gemini AI"></i>
+                        <i class="fas fa-search" title="Vector Database - Pinecone"></i>
+                        <i class="fab fa-envira" title="MongoDB"></i>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>Dự án C</h3>
-                    <p>Ứng dụng quản lý thời gian làm việc hiệu quả.</p>
+
+            </div>
+        </section>
+
+        <section id="certs">
+            <h2 class="section-title">Chứng Chỉ & Kỹ Năng</h2>
+            <div class="cert-container">
+                <div class="cert-item">
+                    <i class="fas fa-award"></i>
+                    <div>
+                        <h4>TOEIC 800+ Target</h4>
+                        <p>Đang trong quá trình hoàn thiện</p>
+                    </div>
+                </div>
+                <div class="cert-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <h4>Database Security</h4>
+                        <p>HCMUE Certification</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="chung-chi">
-            <h2>Chứng chỉ</h2>
-            <ul class="cert-list">
-                <li>Chứng chỉ Lập trình Web cơ bản - Coursera (2023)</li>
-                <li>Chứng chỉ tiếng Anh IELTS 6.5</li>
-                <li>Khóa học UI/UX Design Pro - Udemy</li>
-            </ul>
+        <section id="contact">
+            <div class="contact-box">
+                <h2>Bạn có dự án thú vị?</h2>
+                <p>Hãy kết nối để cùng nhau tạo nên những điều khác biệt.</p>
+                <div class="contact-links">
+                    <a href="mailto:vui.tran@example.com" class="btn-contact">Email cho tôi</a>
+                    <a href="https://github.com/HoangVanHaii/CSDLNC" class="btn-contact" style="background: transparent; color: #fff; border: 1px solid #fff;">GitHub</a>
+                </div>
+            </div>
         </section>
-
-        <section id="lien-he" class="contact">
-            <h2>Liên hệ</h2>
-            <p>Email: <a href="mailto:email@cua-ban.com">email@cua-ban.com</a></p>
-            <p>Số điện thoại: 0123 456 789</p>
-            <p>LinkedIn: linkedin.com/in/yourprofile</p>
-        </section>
-    </div>
+    </main>
 
     <footer>
-        <p>&copy; 2026 - Portfolio thiết kế bởi [Tên của bạn]</p>
+        &copy; 2026 Trần Huy Vui. Built with Passion & Code.
     </footer>
 
 </body>
