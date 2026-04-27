@@ -1,309 +1,1014 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trần Huy Vui | Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --secondary: #a855f7;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --glass: rgba(255, 255, 255, 0.1);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trần Huy Vui · Backend Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET & BASE ────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+    :root {
+      --ink:       #0e0e10;
+      --ink-2:     #1c1c1f;
+      --ink-3:     #2a2a2e;
+      --muted:     #6b6b72;
+      --faint:     #3a3a3f;
+      --light:     #f0eff5;
+      --off-white: #faf9fd;
+      --accent:    #7c6af7;
+      --accent-2:  #a78bfa;
+      --accent-glow: rgba(124,106,247,0.18);
+      --green:     #34d399;
+      --amber:     #fbbf24;
+      --red:       #f87171;
+      --border:    rgba(255,255,255,0.07);
+      --border-2:  rgba(255,255,255,0.13);
+      --r-sm: 8px;
+      --r-md: 14px;
+      --r-lg: 20px;
+      --r-xl: 28px;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
-            color: var(--light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--ink);
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        /* Thanh điều hướng */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+    ::selection { background: var(--accent); color: #fff; }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    /* ── NOISE TEXTURE OVERLAY ───────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      background: rgba(14,14,16,0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+    }
 
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            margin-left: 2rem;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            opacity: 0.8;
-        }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
 
-        .nav-links a:hover {
-            opacity: 1;
-            color: var(--primary);
-        }
+    .logo span {
+      color: var(--accent-2);
+    }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 10%;
-        }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.25rem;
+    }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 100px;
+      transition: color 0.2s, background 0.2s;
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            max-width: 600px;
-        }
+    .nav-links a:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+    }
 
-        /* Section chung */
-        section {
-            padding: 100px 10%;
-        }
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 5% 80px;
+      position: relative;
+    }
 
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-        }
+    /* big glow blob */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,106,247,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-        /* Grid Dự án */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-        }
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
 
-        .project-card {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 1.5rem;
+    }
 
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border-color: var(--primary);
-        }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1.5px;
+      background: var(--accent-2);
+      border-radius: 2px;
+    }
 
-        .tag {
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--primary);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
+    .hero-name {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(42px, 7vw, 72px);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
 
-        .project-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #fff;
-        }
+    .hero-name .dim { color: var(--faint); }
 
-        .project-card p {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
+    .hero-role {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
 
-        .tech-icons {
-            display: flex;
-            gap: 15px;
-            font-size: 1.2rem;
-            color: #6366f1;
-        }
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 3rem;
+    }
 
-        /* Chứng chỉ */
-        .cert-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
+    .chip {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border-2);
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      letter-spacing: 0.02em;
+      transition: border-color 0.2s, color 0.2s;
+    }
 
-        .cert-item {
-            background: rgba(255,255,255,0.05);
-            padding: 1.5rem;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+    .chip:hover { border-color: var(--accent); color: var(--accent-2); }
+    .chip.hi { border-color: rgba(124,106,247,0.4); color: var(--accent-2); background: rgba(124,106,247,0.08); }
 
-        .cert-item i {
-            font-size: 2rem;
-            color: #fbbf24;
-        }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
 
-        /* Liên hệ */
-        .contact-box {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 30px;
-            padding: 4rem;
-            text-align: center;
-        }
+    .btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
 
-        .contact-links {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 0 0 var(--accent-glow);
+    }
 
-        .btn-contact {
-            background: #fff;
-            color: var(--dark);
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+    .btn-accent:hover {
+      background: var(--accent-2);
+      box-shadow: 0 0 24px 4px var(--accent-glow);
+    }
 
-        .btn-contact:hover {
-            transform: scale(1.1);
-        }
+    .btn-ghost {
+      background: transparent;
+      color: var(--light);
+      border: 1px solid var(--border-2);
+    }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            opacity: 0.5;
-            font-size: 0.8rem;
-        }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border-2);
+    }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .project-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    /* ── SECTION SHELL ───────────────────────────────── */
+    .section {
+      padding: 100px 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .sec-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sec-label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--accent-2);
+      border-radius: 2px;
+    }
+
+    .sec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    hr.sec-rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 5%;
+    }
+
+    /* ── ABOUT ───────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .about-bio {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 2rem;
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--muted);
+      grid-column: 1 / -1;
+    }
+
+    .about-bio strong { color: #fff; font-weight: 500; }
+
+    /* ── SKILLS ──────────────────────────────────────── */
+    .skills-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-group {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 1.25rem 1.4rem;
+      transition: border-color 0.2s;
+    }
+
+    .skill-group:hover { border-color: var(--border-2); }
+
+    .sg-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 12px;
+    }
+
+    .sg-items { display: flex; flex-direction: column; gap: 8px; }
+
+    .sg-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .sg-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--faint);
+      flex-shrink: 0;
+    }
+
+    .sg-dot.accent { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+    .sg-dot.green  { background: var(--green);  box-shadow: 0 0 6px var(--green); }
+    .sg-dot.amber  { background: var(--amber);  box-shadow: 0 0 6px var(--amber); }
+
+    /* ── PROJECTS ────────────────────────────────────── */
+    .projects-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .proj-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .proj-card:hover {
+      border-color: rgba(124,106,247,0.35);
+      box-shadow: 0 8px 48px rgba(124,106,247,0.1);
+    }
+
+    .proj-header {
+      padding: 2rem 2rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .proj-num {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 6px;
+    }
+
+    .proj-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .proj-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .proj-badges { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 11px;
+      border-radius: 100px;
+      border: 1px solid rgba(124,106,247,0.3);
+      color: var(--accent-2);
+      background: rgba(124,106,247,0.08);
+      white-space: nowrap;
+    }
+
+    .badge.green {
+      border-color: rgba(52,211,153,0.3);
+      color: var(--green);
+      background: rgba(52,211,153,0.08);
+    }
+
+    .proj-body {
+      padding: 1.75rem 2rem;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+    }
+
+    .proj-desc {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .arch-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 1.25rem;
+    }
+
+    .arch-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 12px 14px;
+    }
+
+    .arch-title { font-size: 12px; font-weight: 500; color: #fff; margin-bottom: 4px; }
+    .arch-desc { font-size: 11px; color: var(--muted); line-height: 1.55; }
+
+    .proj-meta { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .meta-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 8px;
+    }
+
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tech-tag {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .feat-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+
+    .feat-list li {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      line-height: 1.5;
+    }
+
+    .feat-list li::before {
+      content: '';
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 7px;
+      flex-shrink: 0;
+      box-shadow: 0 0 6px var(--accent);
+    }
+
+    .proj-footer {
+      padding: 1.1rem 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+    }
+
+    /* wip card */
+    .wip-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px dashed var(--faint);
+      border-radius: var(--r-xl);
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .wip-card p { font-size: 13px; color: var(--faint); }
+
+    /* ── CERTS ───────────────────────────────────────── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .cert-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 1.4rem;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+
+    .cert-card:hover { border-color: var(--border-2); }
+
+    .cert-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--r-sm);
+      background: rgba(124,106,247,0.1);
+      border: 1px solid rgba(124,106,247,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 3px;
+      line-height: 1.3;
+    }
+
+    .cert-org { font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+    .cert-year { font-size: 11px; color: var(--faint); }
+
+    .cert-card.placeholder { opacity: 0.4; border-style: dashed; }
+
+    /* ── CONTACT ─────────────────────────────────────── */
+    .contact-wrap {
+      background: linear-gradient(135deg, rgba(124,106,247,0.15) 0%, rgba(167,139,250,0.08) 100%);
+      border: 1px solid rgba(124,106,247,0.25);
+      border-radius: var(--r-xl);
+      padding: 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-wrap::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,106,247,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .contact-wrap h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      letter-spacing: -0.025em;
+    }
+
+    .contact-wrap p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p { font-size: 12px; color: var(--faint); }
+
+    /* ── SCROLL REVEAL (CSS only) ────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      .proj-body { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-wrap { padding: 2rem 1.5rem; }
+      .proj-header { flex-direction: column; }
+      .hero { padding: 100px 5% 60px; }
+    }
+
+    @media (max-width: 500px) {
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">HUY VUI.</div>
-        <ul class="nav-links">
-            <li><a href="#about">Giới thiệu</a></li>
-            <li><a href="#projects">Dự án</a></li>
-            <li><a href="#certs">Chứng chỉ</a></li>
-            <li><a href="#contact">Liên hệ</a></li>
-        </ul>
-    </nav>
+  <!-- NAV -->
+  <nav>
+    <div class="logo">HUY VUI<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">Giới thiệu</a></li>
+      <li><a href="#projects">Dự án</a></li>
+      <li><a href="#certs">Chứng chỉ</a></li>
+      <li><a href="#contact">Liên hệ</a></li>
+    </ul>
+  </nav>
 
-    <main>
-        <section class="hero" id="about">
-            <h1>Backend Developer</h1>
-            <p>Sinh viên CNTT tại HCMUE. Chuyên sâu về Node.js, Hệ thống phân tán và tích hợp AI (Gemini). Xây dựng những sản phẩm bền vững và hiệu năng cao.</p>
-        </section>
+  <!-- ── HERO ──────────────────────────────────────────── -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Backend Developer · 2025</div>
+      <h1 class="hero-name">
+        Trần<br>
+        Huy Vui<span class="dim">.</span>
+      </h1>
+      <p class="hero-role">
+        Sinh viên CNTT đam mê xây dựng hệ thống backend mạnh mẽ,<br>
+        kiến trúc phân tán và tích hợp AI vào ứng dụng thực tế.
+      </p>
+      <div class="hero-chips">
+        <span class="chip hi">Node.js</span>
+        <span class="chip hi">TypeScript</span>
+        <span class="chip hi">SQL Server</span>
+        <span class="chip hi">MongoDB</span>
+        <span class="chip hi">Redis</span>
+        <span class="chip">Express.js</span>
+        <span class="chip">MySQL</span>
+        <span class="chip">Vue 3</span>
+        <span class="chip">Tailwind CSS</span>
+      </div>
+      <div class="hero-ctas">
+        <a class="btn btn-accent" href="#projects">Xem dự án</a>
+        <a class="btn btn-ghost" href="#contact">Liên hệ</a>
+      </div>
+    </div>
+  </section>
 
-        <section id="projects">
-            <h2 class="section-title">Dự Án Tâm Huyết</h2>
-            <div class="project-grid">
-                
-                <div class="project-card">
-                    <span class="tag">Hybrid Database</span>
-                    <span class="tag">Fullstack</span>
-                    <h3>Fashion Shop - E-Commerce</h3>
-                    <p>Website bán hàng thời trang với cơ chế hiển thị sản phẩm theo vùng miền. Sử dụng kiến trúc SQL Server Replication để đồng bộ dữ liệu giữa 3 chi nhánh (HN, DN, HCM).</p>
-                    <div class="tech-icons">
-                        <i class="fab fa-vuejs" title="Vue 3"></i>
-                        <i class="fab fa-node-js" title="Node.js"></i>
-                        <i class="fas fa-database" title="SQL Server & MongoDB"></i>
-                    </div>
-                </div>
+  <hr class="sec-rule" />
 
-                <div class="project-card">
-                    <span class="tag">Gemini AI Integration</span>
-                    <span class="tag">RAG Architecture</span>
-                    <h3>AI Job Portal System</h3>
-                    <p>Nền tảng tuyển dụng thông minh. Sử dụng Gemini API để phân tích CV và tự động chấm điểm độ phù hợp (matching score) giữa ứng viên và mô tả công việc (JD).</p>
-                    <div class="tech-icons">
-                        <i class="fas fa-robot" title="Gemini AI"></i>
-                        <i class="fas fa-search" title="Vector Database - Pinecone"></i>
-                        <i class="fab fa-envira" title="MongoDB"></i>
-                    </div>
-                </div>
+  <!-- ── ABOUT ─────────────────────────────────────────── -->
+  <div class="section reveal" id="about">
+    <div class="sec-label">Về tôi</div>
+    <h2 class="sec-title">Giới thiệu</h2>
 
+    <div class="about-grid">
+      <div class="about-bio">
+        Xin chào! Mình là <strong>Trần Huy Vui</strong> — một backend developer chuyên xây dựng các API hiệu năng cao và kiến trúc phân tán. Mình đặc biệt quan tâm đến thiết kế hệ thống cơ sở dữ liệu <strong>Hybrid (SQL + NoSQL)</strong>, tối ưu hiệu suất với <strong>Redis caching</strong>, và ứng dụng AI vào các bài toán thực tế.
+        <br><br>
+        Mình có nền tảng vững về <strong>Node.js, TypeScript, Express</strong> ở phía backend và có thể làm việc hiệu quả với <strong>Vue 3, Tailwind CSS</strong> ở phía frontend khi cần. Luôn hướng đến code sạch, có cấu trúc, và dễ scale.
+      </div>
+    </div>
+
+    <div class="skills-wrap" style="margin-top: 1.25rem;">
+      <div class="skill-group">
+        <div class="sg-label">Backend</div>
+        <div class="sg-items">
+          <div class="sg-item"><div class="sg-dot accent"></div>Node.js</div>
+          <div class="sg-item"><div class="sg-dot accent"></div>TypeScript</div>
+          <div class="sg-item"><div class="sg-dot accent"></div>Express.js</div>
+          <div class="sg-item"><div class="sg-dot accent"></div>JWT / Auth</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-label">Database</div>
+        <div class="sg-items">
+          <div class="sg-item"><div class="sg-dot green"></div>SQL Server</div>
+          <div class="sg-item"><div class="sg-dot green"></div>MySQL</div>
+          <div class="sg-item"><div class="sg-dot green"></div>MongoDB</div>
+          <div class="sg-item"><div class="sg-dot green"></div>Replication</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-label">Cache & Queue</div>
+        <div class="sg-items">
+          <div class="sg-item"><div class="sg-dot amber"></div>Redis</div>
+          <div class="sg-item"><div class="sg-dot amber"></div>Session Store</div>
+          <div class="sg-item"><div class="sg-dot amber"></div>Rate Limiting</div>
+          <div class="sg-item"><div class="sg-dot amber"></div>Pub/Sub</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-label">Frontend</div>
+        <div class="sg-items">
+          <div class="sg-item"><div class="sg-dot"></div>Vue 3</div>
+          <div class="sg-item"><div class="sg-dot"></div>Tailwind CSS</div>
+          <div class="sg-item"><div class="sg-dot"></div>Pinia</div>
+          <div class="sg-item"><div class="sg-dot"></div>Axios</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-label">Công cụ</div>
+        <div class="sg-items">
+          <div class="sg-item"><div class="sg-dot"></div>Git / GitHub</div>
+          <div class="sg-item"><div class="sg-dot"></div>Cloudinary</div>
+          <div class="sg-item"><div class="sg-dot"></div>VNPay</div>
+          <div class="sg-item"><div class="sg-dot"></div>node-cron</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-label">AI / Khác</div>
+        <div class="sg-items">
+          <div class="sg-item"><div class="sg-dot accent"></div>Gemini API</div>
+          <div class="sg-item"><div class="sg-dot accent"></div>RAG Pipeline</div>
+          <div class="sg-item"><div class="sg-dot accent"></div>Vector DB</div>
+          <div class="sg-item"><div class="sg-dot accent"></div>Pinecone</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sec-rule" />
+
+  <!-- ── PROJECTS ──────────────────────────────────────── -->
+  <div class="section reveal" id="projects">
+    <div class="sec-label">Công việc</div>
+    <h2 class="sec-title">Dự án tâm huyết</h2>
+
+    <div class="projects-list">
+
+      <!-- PROJECT 1 -->
+      <div class="proj-card">
+        <div class="proj-header">
+          <div>
+            <div class="proj-num">Dự án 01</div>
+            <div class="proj-title">Fashion Shop</div>
+            <div class="proj-sub">Website thương mại điện tử thời trang · Hybrid SQL–NoSQL · Phân tán theo vùng miền</div>
+          </div>
+          <div class="proj-badges">
+            <span class="badge">Fullstack</span>
+            <span class="badge">Hybrid DB</span>
+          </div>
+        </div>
+
+        <div class="proj-body">
+          <div>
+            <p class="proj-desc">
+              Ứng dụng bán quần áo & phụ kiện thời trang nam nữ với cơ chế hiển thị sản phẩm theo vùng địa lý. Điểm cốt lõi là kiến trúc cơ sở dữ liệu <strong style="color:#fff;font-weight:500;">Hybrid</strong> — SQL Server Replication phân tán 4 instance theo vùng miền, kết hợp MongoDB lưu trữ media qua Cloudinary.
+            </p>
+            <div class="arch-cards">
+              <div class="arch-card">
+                <div class="arch-title">SQL Server · Phân tán</div>
+                <div class="arch-desc">4 instance (Central, HN, DN, HCM) đồng bộ qua Replication</div>
+              </div>
+              <div class="arch-card">
+                <div class="arch-title">MongoDB · Media</div>
+                <div class="arch-desc">Lưu đường dẫn ảnh/video qua Cloudinary, schema NoSQL linh hoạt</div>
+              </div>
+              <div class="arch-card">
+                <div class="arch-title">Redis · Cache</div>
+                <div class="arch-desc">Session, rate limit, tăng tốc truy vấn sản phẩm hot</div>
+              </div>
+              <div class="arch-card">
+                <div class="arch-title">VNPay · Payment</div>
+                <div class="arch-desc">Tích hợp thanh toán trực tuyến, COD</div>
+              </div>
             </div>
-        </section>
+          </div>
 
-        <section id="certs">
-            <h2 class="section-title">Chứng Chỉ & Kỹ Năng</h2>
-            <div class="cert-container">
-                <div class="cert-item">
-                    <i class="fas fa-award"></i>
-                    <div>
-                        <h4>TOEIC 800+ Target</h4>
-                        <p>Đang trong quá trình hoàn thiện</p>
-                    </div>
-                </div>
-                <div class="cert-item">
-                    <i class="fas fa-shield-alt"></i>
-                    <div>
-                        <h4>Database Security</h4>
-                        <p>HCMUE Certification</p>
-                    </div>
-                </div>
+          <div class="proj-meta">
+            <div>
+              <div class="meta-label">Tech Stack</div>
+              <div class="tech-tags">
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">Vue 3</span>
+                <span class="tech-tag">Tailwind</span>
+                <span class="tech-tag">SQL Server</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">Redis</span>
+                <span class="tech-tag">JWT</span>
+                <span class="tech-tag">VNPay</span>
+                <span class="tech-tag">Cloudinary</span>
+                <span class="tech-tag">Vite</span>
+              </div>
             </div>
-        </section>
-
-        <section id="contact">
-            <div class="contact-box">
-                <h2>Bạn có dự án thú vị?</h2>
-                <p>Hãy kết nối để cùng nhau tạo nên những điều khác biệt.</p>
-                <div class="contact-links">
-                    <a href="mailto:vui.tran@example.com" class="btn-contact">Email cho tôi</a>
-                    <a href="https://github.com/HoangVanHaii/CSDLNC" class="btn-contact" style="background: transparent; color: #fff; border: 1px solid #fff;">GitHub</a>
-                </div>
+            <div>
+              <div class="meta-label">Tính năng nổi bật</div>
+              <ul class="feat-list">
+                <li>Sản phẩm theo vùng địa lý (GeoIP)</li>
+                <li>Flash sale tự động — node-cron</li>
+                <li>Quản trị đa cấp: seller / admin branch / admin central</li>
+                <li>Voucher, đánh giá, theo dõi đơn hàng</li>
+                <li>Thanh toán VNPay & COD</li>
+              </ul>
             </div>
-        </section>
-    </main>
+          </div>
+        </div>
 
-    <footer>
-        &copy; 2026 Trần Huy Vui. Built with Passion & Code.
-    </footer>
+        <div class="proj-footer">
+          <a class="btn btn-accent" href="https://github.com/HoangVanHaii/CSDLNC" target="_blank" rel="noopener">GitHub ↗</a>
+          <!-- <a class="btn btn-ghost" href="#" target="_blank">Demo ↗</a> -->
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="proj-card">
+        <div class="proj-header">
+          <div>
+            <div class="proj-num">Dự án 02</div>
+            <div class="proj-title">AI Job Portal System</div>
+            <div class="proj-sub">Nền tảng tuyển dụng thông minh · Gemini API · RAG Architecture · Vector Search</div>
+          </div>
+          <div class="proj-badges">
+            <span class="badge">AI Integration</span>
+            <span class="badge green">RAG</span>
+          </div>
+        </div>
+
+        <div class="proj-body">
+          <div>
+            <p class="proj-desc">
+              Hệ thống tuyển dụng ứng dụng AI để phân tích CV và tự động tính <strong style="color:#fff;font-weight:500;">matching score</strong> giữa ứng viên và mô tả công việc (JD). Sử dụng Gemini API kết hợp kiến trúc RAG (Retrieval-Augmented Generation) để gợi ý ứng viên phù hợp nhất.
+            </p>
+            <div class="arch-cards">
+              <div class="arch-card">
+                <div class="arch-title">Gemini API</div>
+                <div class="arch-desc">Phân tích CV, scoring, sinh tóm tắt ứng viên</div>
+              </div>
+              <div class="arch-card">
+                <div class="arch-title">Pinecone Vector DB</div>
+                <div class="arch-desc">Lưu embedding, tìm kiếm semantic nhanh</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="proj-meta">
+            <div>
+              <div class="meta-label">Tech Stack</div>
+              <div class="tech-tags">
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">Redis</span>
+                <span class="tech-tag">Gemini API</span>
+                <span class="tech-tag">Pinecone</span>
+                <span class="tech-tag">RAG</span>
+                <span class="tech-tag">Vue 3</span>
+              </div>
+            </div>
+            <div>
+              <div class="meta-label">Tính năng nổi bật</div>
+              <ul class="feat-list">
+                <li>Tự động phân tích & chấm điểm CV</li>
+                <li>Matching score ứng viên ↔ JD</li>
+                <li>Semantic search qua Vector DB</li>
+                <li>RAG pipeline gợi ý ứng viên phù hợp</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-footer">
+          <a class="btn btn-ghost" href="#">GitHub (sắp ra mắt)</a>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER -->
+      <div class="wip-card">
+        <p style="font-size:12px;color:var(--faint);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;">Tiếp theo</p>
+        <p>Đang phát triển thêm dự án mới...</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sec-rule" />
+
+  <!-- ── CERTS ─────────────────────────────────────────── -->
+  <div class="section reveal" id="certs">
+    <div class="sec-label">Học vấn & Chứng chỉ</div>
+    <h2 class="sec-title">Chứng chỉ</h2>
+
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 2L12.4 7.8H18.5L13.5 11.4L15.4 17.5L10 13.8L4.6 17.5L6.5 11.4L1.5 7.8H7.6L10 2Z" stroke="#a78bfa" stroke-width="1.4" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="cert-name">Cơ sở dữ liệu nâng cao</div>
+          <div class="cert-org">Học phần đại học · Xuất sắc</div>
+          <div class="cert-year">2025</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="3" y="5" width="14" height="10" rx="2" stroke="#a78bfa" stroke-width="1.4"/>
+            <path d="M7 9h6M7 12h4" stroke="#a78bfa" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="cert-name">TOEIC 800+ Target</div>
+          <div class="cert-org">Đang trong quá trình hoàn thiện</div>
+          <div class="cert-year">2025</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="#a78bfa" stroke-width="1.4"/>
+            <path d="M10 7v3.5l2.5 2.5" stroke="#a78bfa" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="cert-name">Database Security</div>
+          <div class="cert-org">HCMUE Certification</div>
+          <div class="cert-year">2025</div>
+        </div>
+      </div>
+
+      <div class="cert-card placeholder">
+        <div class="cert-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 6v8M6 10h8" stroke="#6b6b72" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="cert-name" style="color:var(--faint);">Thêm chứng chỉ mới</div>
+          <div class="cert-org">Đang cập nhật...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sec-rule" />
+
+  <!-- ── CONTACT ────────────────────────────────────────── -->
+  <div class="section reveal" id="contact">
+    <div class="sec-label">Kết nối</div>
+    <h2 class="sec-title">Liên hệ</h2>
+
+    <div class="contact-wrap">
+      <h3>Hãy cùng xây dựng điều gì đó.</h3>
+      <p>Mình luôn sẵn sàng cho các cơ hội mới — cộng tác dự án, thực tập hay trao đổi về công nghệ.</p>
+      <div class="contact-links">
+        <!-- ✏️ Thay bằng email thật của bạn -->
+        <a class="btn btn-accent" href="mailto:your_email@gmail.com">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2.5" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1 4.5l6 4 6-4" stroke="currentColor" stroke-width="1.3"/></svg>
+          Email
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/HoangVanHaii" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0.875C3.61 0.875 0.875 3.61 0.875 7c0 2.71 1.76 5.01 4.19 5.83.31.056.42-.131.42-.294V11.3c-1.71.37-2.07-.825-2.07-.825-.28-.71-.684-.9-.684-.9-.558-.38.044-.373.044-.373.618.044.943.633.943.633.549.94 1.438.668 1.789.51.055-.397.215-.668.39-.82-1.365-.155-2.8-.683-2.8-3.04 0-.671.24-1.219.632-1.649-.063-.156-.274-.779.06-1.622 0 0 .515-.164 1.69.63A5.88 5.88 0 017 4.36c.525.003 1.053.071 1.546.21 1.173-.794 1.688-.63 1.688-.63.335.843.124 1.466.061 1.622.393.43.632.978.632 1.649 0 2.362-1.438 2.882-2.807 3.034.22.19.416.565.416 1.14v1.69c0 .164.11.354.42.293C11.365 12.01 13.125 9.71 13.125 7c0-3.39-2.735-6.125-6.125-6.125z" fill="currentColor"/></svg>
+          GitHub
+        </a>
+        <!-- ✏️ Thay bằng link website & LinkedIn của bạn -->
+        <a class="btn btn-ghost" href="#" target="_blank">Website ↗</a>
+        <a class="btn btn-ghost" href="#" target="_blank">LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ─────────────────────────────────────────── -->
+  <footer>
+    <p>© 2025 Trần Huy Vui · Built with Passion & Code</p>
+    <p>Portfolio v2</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => io.observe(el));
+  </script>
 
 </body>
 </html>
